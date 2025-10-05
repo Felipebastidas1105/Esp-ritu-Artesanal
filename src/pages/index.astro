@@ -1,11 +1,335 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+// Importo imágenes locales desde src/assets para los paneles
+import imgPremium from "../assets/01.jpeg";
+import imgManicure from "../assets/02.jpeg";
+import imgElegancia from "../assets/03.jpeg";
+import imgTipografia from "../assets/04.jpeg";
+import imgContacto from "../assets/05.jpeg";
 ---
 
 <Layout>
-	<Welcome />
+  <!--
+    Conversión a Astro:
+    - Esta página usa HTML + Tailwind para la UI.
+    - Las animaciones se controlan con GSAP/ScrollTrigger en el script al final.
+    - El scroll vertical pinnea un contenedor y desplaza un track horizontal, 
+      creando la ilusión de desplazamiento lateral.
+  -->
+
+  <!-- Header minimal y moderno -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-xl shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-gradient-to-br from-amber-600 to-orange-500 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg">
+          ER
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-amber-900 font-playfair">Espíritu Rosa</h1>
+          <p class="text-xs text-amber-700">Nail Art · Diseño elegante</p>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex gap-8 text-sm font-medium">
+        <a href="#inicio" class="text-amber-900 hover:text-orange-600 transition-colors">Inicio</a>
+        <a href="#galeria" class="text-amber-900 hover:text-orange-600 transition-colors">Galería</a>
+        <a href="#nosotros" class="text-amber-900 hover:text-orange-600 transition-colors">Nosotros</a>
+        <a href="#contacto" class="text-amber-900 hover:text-orange-600 transition-colors">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="overflow-x-hidden bg-[#F5E6D3]">
+    <!-- Hero -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-24">
+      <!-- Sutil textura y blobs -->
+      <div class="absolute inset-0 opacity-5">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle, #d97706 1px, transparent 1px); background-size: 40px 40px"></div>
+      </div>
+      <div class="absolute top-20 left-10 w-72 h-72 bg-orange-200/30 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl"></div>
+
+      <div class="relative max-w-6xl mx-auto px-6 text-center z-10">
+        <div class="inline-block mb-6 px-6 py-2 bg-white/80 backdrop-blur-sm text-orange-700 rounded-full text-sm font-semibold shadow-lg reveal-v">
+          ✨ Uñas y arte con estilo
+        </div>
+        <h2 class="text-6xl md:text-8xl font-bold text-amber-900 mb-8 font-playfair reveal-v">Espíritu Rosa</h2>
+        <p class="text-2xl md:text-3xl text-amber-800 mb-6 max-w-3xl mx-auto font-light reveal-v">Diseño limpio, moderno y elegante</p>
+        <p class="text-lg md:text-xl text-amber-700 mb-12 max-w-2xl mx-auto leading-relaxed reveal-v">Estética cuidada, tipografía fina y transiciones suaves para una experiencia encantadora.</p>
+
+        <div class="flex flex-col sm:flex-row gap-6 justify-center reveal-v">
+          <a href="#galeria" class="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-2xl font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all">Ver Galería</a>
+          <a href="#nosotros" class="inline-flex items-center justify-center px-10 py-5 bg-white/80 backdrop-blur-sm text-amber-900 rounded-2xl font-semibold border-2 border-amber-300 hover:border-amber-500 hover:bg-white transition-all shadow-lg">Nuestra Historia</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección con ilusión de scroll horizontal -->
+    <!--
+      Idea clave:
+      - El scroll vertical "pinnea" este contenedor y desplaza el track horizontal.
+      - Así se siente como si la página se moviera a la derecha/izquierda.
+    -->
+    <section id="galeria" class="relative py-12 md:py-20">
+      <div class="pin-wrap min-h-[70vh] md:min-h-[80vh] flex items-center justify-center">
+        <!-- Track horizontal (contenido en filas) -->
+        <div class="horizontal-track relative flex flex-col md:flex-row gap-8 md:gap-12 px-4 md:px-6 w-full md:w-max">
+          <!-- Cada panel ocupa ancho de viewport para una lectura por bloque -->
+          <!-- Panel 1: imagen a pantalla y texto transparente encima -->
+          <article class="panel min-w-full md:min-w-[70vw] lg:min-w-[55vw] h-auto md:h-[52vh] relative reveal">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-4 md:p-6 bg-white/40 backdrop-blur-md rounded-3xl shadow-soft">
+              <div class="md:col-span-5">
+                <img src={imgPremium.src} alt="Nail art premium" class="parallax-img w-full h-[28vh] md:h-[36vh] object-cover rounded-2xl" />
+              </div>
+              <div class="md:col-span-7">
+                <h3 class="heading text-3xl md:text-5xl font-bold font-playfair text-[#C9A961]">Colección Premium</h3>
+                <div class="mt-3 w-24 h-1.5 bg-[#C9A961] rounded-full"></div>
+                <p class="copy mt-4 md:mt-5 text-base md:text-lg text-[#8B6B47]">Texturas delicadas, colores cálidos y detalles pulidos para un estilo femenino y sofisticado.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Panel 2: overlay centrado sin caja, títulos dorados -->
+          <article class="panel min-w-full md:min-w-[70vw] lg:min-w-[55vw] h-auto md:h-[52vh] relative reveal">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-4 md:p-6 bg-white/40 backdrop-blur-md rounded-3xl shadow-soft">
+              <div class="md:col-span-7 order-2 md:order-1">
+                <h4 class="heading text-2xl md:text-4xl font-bold font-playfair text-[#C9A961]">Manicure Artístico</h4>
+                <div class="mt-3 w-20 h-[3px] bg-[#C9A961] rounded-full"></div>
+                <p class="copy mt-3 md:mt-4 text-sm md:text-base text-[#8B6B47]">Diseños delicados y composiciones limpias.</p>
+              </div>
+              <div class="md:col-span-5 order-1 md:order-2">
+                <img src={imgManicure.src} alt="Manicure artístico" class="parallax-img w-full h-[28vh] md:h-[36vh] object-cover rounded-2xl" />
+              </div>
+            </div>
+          </article>
+
+          <!-- Panel 3: texto a la derecha, imagen full con overlay -->
+          <article class="panel min-w-full md:min-w-[70vw] lg:min-w-[55vw] h-auto md:h-[52vh] relative reveal">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-4 md:p-6 bg-white/40 backdrop-blur-md rounded-3xl shadow-soft">
+              <div class="md:col-span-6">
+                <img src={imgElegancia.src} alt="Detalle y elegancia" class="parallax-img w-full h-[28vh] md:h-[36vh] object-cover rounded-2xl" />
+              </div>
+              <div class="md:col-span-6">
+                <h4 class="heading text-2xl md:text-4xl font-bold font-playfair text-[#C9A961]">Detalle y Elegancia</h4>
+                <div class="mt-3 w-24 h-1.5 bg-[#C9A961] rounded-full"></div>
+                <p class="copy mt-4 md:mt-6 text-sm md:text-base text-[#8B6B47]">Transiciones suaves (fade-in, slide-in y scale) para una sensación premium.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Panel 4: tipografía con acento dorado y overlay ligero -->
+          <article class="panel min-w-full md:min-w-[70vw] lg:min-w-[55vw] h-auto md:h-[52vh] relative reveal">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-4 md:p-6 bg-white/40 backdrop-blur-md rounded-3xl shadow-soft">
+              <div class="md:col-span-6 order-2 md:order-1">
+                <h4 class="heading text-2xl md:text-4xl font-bold font-playfair text-[#C9A961]">Tipografía</h4>
+                <div class="mt-3 w-24 h-1.5 bg-[#C9A961] rounded-full"></div>
+                <p class="copy mt-4 md:mt-6 text-sm md:text-base text-[#8B6B47]">Playfair para títulos y Poppins/Montserrat para texto, con buena separación visual.</p>
+              </div>
+              <div class="md:col-span-6 order-1 md:order-2">
+                <img src={imgTipografia.src} alt="Tipografía y estilo" class="parallax-img w-full h-[28vh] md:h-[36vh] object-cover rounded-2xl" />
+              </div>
+            </div>
+          </article>
+
+          <!-- Panel 5: contacto, texto sobre imagen sin fondo -->
+          <article class="panel min-w-full md:min-w-[70vw] lg:min-w-[55vw] h-auto md:h-[52vh] relative reveal">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-4 md:p-6 bg-white/40 backdrop-blur-md rounded-3xl shadow-soft">
+              <div class="md:col-span-6">
+                <img src={imgContacto.src} alt="Contacto y experiencia" class="parallax-img w-full h-[28vh] md:h-[36vh] object-cover rounded-2xl" />
+              </div>
+              <div class="md:col-span-6">
+                <h4 class="heading text-2xl md:text-4xl font-bold font-playfair text-[#C9A961]">Contacto</h4>
+                <div class="mt-3 w-24 h-1.5 bg-[#C9A961] rounded-full"></div>
+                <p class="copy mt-4 md:mt-6 text-sm md:text-base text-[#8B6B47]">Secciones que aparecen una tras otra mientras haces scroll.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección vertical adicional -->
+    <section id="nosotros" class="py-24 px-6 bg-white relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div class="space-y-6">
+            <h3 class="text-5xl md:text-6xl font-bold text-amber-900 font-playfair reveal-v">Cuidado en cada detalle</h3>
+            <p class="text-xl text-amber-800 leading-relaxed reveal-v">Diseñamos experiencias visuales elegantes, responsivas y de alto rendimiento en Astro.</p>
+          </div>
+          <div class="rounded-3xl bg-gradient-to-br from-amber-200 via-orange-200 to-rose-200 aspect-square flex items-center justify-center text-8xl reveal-v">🎨</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="py-24 px-6 bg-gradient-to-br from-amber-50 to-orange-50">
+      <div class="max-w-5xl mx-auto text-center">
+        <h3 class="text-5xl md:text-6xl font-bold text-amber-900 font-playfair mb-6 reveal-v">¡Conecta con nosotros!</h3>
+        <div class="w-32 h-1.5 bg-gradient-to-r from-amber-600 to-orange-600 mx-auto rounded-full mb-8"></div>
+        <p class="text-xl text-amber-800 mb-8 max-w-2xl mx-auto reveal-v">Escríbenos para trabajos personalizados y colaboraciones.</p>
+        <a href="#" class="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-2xl font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all">Contactar</a>
+      </div>
+    </section>
+
+    <footer class="bg-gradient-to-br from-amber-900 to-orange-900 text-amber-100 py-16 px-6">
+      <div class="max-w-7xl mx-auto text-center">
+        <h4 class="text-3xl font-bold mb-2 font-playfair">Espíritu Rosa</h4>
+        <p class="text-lg">Hecho a mano con amor ✨</p>
+        <div class="mt-6 border-t border-amber-700/50 pt-6 text-sm">© 2025 Espíritu Rosa. Todos los derechos reservados.</div>
+      </div>
+    </footer>
+  </main>
+
+  <!--
+    Script del efecto (GSAP + ScrollTrigger):
+    - Pin del contenedor y desplazamiento del track horizontal.
+    - Animaciones suaves al aparecer (fade/slide/scale) con ScrollTrigger.
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js" defer></script>
+
+  <script>
+    const { gsap, ScrollTrigger } = window;
+    if (gsap && ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Responsive: horizontal (pin) en desktop y stack vertical en móviles
+      ScrollTrigger.matchMedia({
+        "(min-width: 768px)": function () {
+          const track = document.querySelector(".horizontal-track");
+          const pinWrap = document.querySelector(".pin-wrap");
+
+          if (track && pinWrap) {
+            const totalScroll = () => track.scrollWidth - window.innerWidth;
+            const horizontalTween = gsap.to(track, {
+              x: () => -totalScroll(),
+              ease: "none",
+              scrollTrigger: {
+                trigger: pinWrap,
+                start: "top top",
+                end: () => "+=" + totalScroll(),
+                pin: true,
+                scrub: 0.5,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+              },
+            });
+
+            // Aparición de paneles alineados al scroll horizontal
+            gsap.utils.toArray(".reveal").forEach((el) => {
+              gsap.from(el, {
+                opacity: 0,
+                y: 30,
+                scale: 0.98,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: el,
+                  containerAnimation: horizontalTween,
+                  start: "left 85%",
+                  toggleActions: "play none none reverse",
+                },
+              });
+            });
+
+            // Parallax suave para imágenes
+            gsap.utils.toArray(".parallax-img").forEach((img) => {
+              gsap.fromTo(
+                img,
+                { x: 60, scale: 1.02, opacity: 0 },
+                {
+                  x: -60,
+                  scale: 1.0,
+                  opacity: 1,
+                  duration: 0.8,
+                  ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: img,
+                    containerAnimation: horizontalTween,
+                    start: "left 80%",
+                    toggleActions: "play none none reverse",
+                  },
+                }
+              );
+            });
+
+            // Títulos y copys con contramovimiento sutil
+            gsap.utils.toArray(".panel .heading").forEach((el) => {
+              gsap.from(el, {
+                opacity: 0,
+                x: -40,
+                duration: 0.7,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: el,
+                  containerAnimation: horizontalTween,
+                  start: "left 85%",
+                  toggleActions: "play none none reverse",
+                },
+              });
+            });
+            gsap.utils.toArray(".panel .copy").forEach((el) => {
+              gsap.from(el, {
+                opacity: 0,
+                x: 40,
+                duration: 0.7,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: el,
+                  containerAnimation: horizontalTween,
+                  start: "left 85%",
+                  toggleActions: "play none none reverse",
+                },
+              });
+            });
+          }
+        },
+        "(max-width: 767px)": function () {
+          // Apilado vertical sin pin; apariciones suaves
+          gsap.set(".horizontal-track", { clearProps: "x" });
+          gsap.utils.toArray(".reveal").forEach((el) => {
+            gsap.from(el, {
+              opacity: 0,
+              y: 24,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            });
+          });
+          gsap.utils.toArray(".parallax-img").forEach((img) => {
+            gsap.from(img, {
+              opacity: 0,
+              y: 20,
+              scale: 1.02,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: img,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            });
+          });
+        },
+      });
+
+      // 3) Aparición suave en secciones verticales
+      gsap.utils.toArray(".reveal-v").forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      });
+    }
+  </script>
 </Layout>
