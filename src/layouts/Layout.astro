@@ -17,6 +17,34 @@
     <title>Espíritu Artesano</title>
   </head>
   <body class="font-poppins antialiased tracking-wide leading-relaxed text-black bg-[#F5E6D3] overflow-x-hidden">
+    <!-- Header global de navegación entre rutas -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-xl shadow-sm">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-gradient-to-br from-amber-600 to-orange-500 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg">
+            <img src="/favicon.jpg" alt="Logo Espíritu Artesano" class="w-full h-full object-contain" />
+          </div>
+          <div>
+            <a href="/" class="block">
+              <h1 class="text-2xl font-bold text-amber-900 font-playfair">Espíritu Artesano</h1>
+            </a>
+            <p class="text-xs text-amber-700">Accesorios únicos • Hechos con paciencia y amor</p>
+          </div>
+        </div>
+
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="/#inicio" class="text-amber-900 hover:text-orange-600 transition-colors">Inicio</a>
+          <a href="/#galeria" class="text-amber-900 hover:text-orange-600 transition-colors">Galería</a>
+          <a href="/#nosotros" class="text-amber-900 hover:text-orange-600 transition-colors">Nosotros</a>
+          <a href="/#contacto" class="text-amber-900 hover:text-orange-600 transition-colors">Contacto</a>
+          <a href="/productos" class="text-amber-900 hover:text-orange-600 transition-colors">Productos</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- separador para compensar header fijo -->
+    <div class="h-20"></div>
+
     <slot />
   </body>
 </html>

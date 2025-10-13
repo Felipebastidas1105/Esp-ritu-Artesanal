@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { cards } from "../data/cards";
+---
+
+<Layout>
+  <main class="overflow-x-hidden">
+    <section class="py-24 px-6 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-5xl md:text-6xl font-bold text-amber-900 font-playfair mb-6">Productos</h2>
+        <div class="w-32 h-1.5 bg-gradient-to-r from-amber-600 to-orange-600 rounded-full mb-10"></div>
+
+        <!-- Filtros -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+          <input id="filter-name" type="text" placeholder="Buscar por nombre" class="px-4 py-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none bg-white/80" />
+          <select id="filter-category" class="px-4 py-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none bg-white/80">
+            <option value="Todas">Todas las categorías</option>
+            {Array.from(new Set(cards.map((c) => c.category))).map((cat) => (
+              <option value={cat}>{cat}</option>
+            ))}
+          </select>
+          <input id="filter-min-price" type="number" min="0" placeholder="Precio mínimo" class="px-4 py-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none bg-white/80" />
+          <input id="filter-max-price" type="number" min="0" placeholder="Precio máximo" class="px-4 py-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none bg-white/80" />
+        </div>
+
+        <!-- Grid de productos -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {cards.map((p) => (
+            <article class="product-card bg-white/80 rounded-2xl shadow-soft overflow-hidden border border-amber-100" data-name={p.title} data-category={p.category} data-price={p.price}>
+              <div class="w-full h-56 bg-white flex items-center justify-center">
+                <img src={p.image.src} alt={p.alt} class="w-full h-full object-contain" />
+              </div>
+              <div class="p-5">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-xl font-semibold text-amber-900">{p.title}</h4>
+                  <span class="text-sm px-2 py-1 rounded-full bg-amber-100 text-amber-800">{p.category}</span>
+                </div>
+                <p class="text-sm text-amber-800 mb-3">{p.description}</p>
+                <div class="text-amber-900 font-bold">${p.price}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Filtrado por nombre, categoría y precio
+    const nameInput = document.getElementById("filter-name") as HTMLInputElement | null;
+    const categorySelect = document.getElementById("filter-category") as HTMLSelectElement | null;
+    const minInput = document.getElementById("filter-min-price") as HTMLInputElement | null;
+    const maxInput = document.getElementById("filter-max-price") as HTMLInputElement | null;
+
+    function applyFilters() {
+      const name = (nameInput?.value || "").toLowerCase().trim();
+      const cat = categorySelect?.value || "Todas";
+      const min = parseFloat(minInput?.value || "0");
+      const max = parseFloat(maxInput?.value || `${Number.MAX_VALUE}`);
+
+      document.querySelectorAll<HTMLElement>(".product-card").forEach((el) => {
+        const n = (el.dataset.name || "").toLowerCase();
+        const c = el.dataset.category || "";
+        const p = parseFloat(el.dataset.price || "0");
+        const matchesName = !name || n.includes(name);
+        const matchesCategory = !cat || cat === "Todas" || c === cat;
+        const matchesPrice = p >= (isNaN(min) ? 0 : min) && p <= (isNaN(max) ? Number.MAX_VALUE : max);
+        el.classList.toggle("hidden", !(matchesName && matchesCategory && matchesPrice));
+      });
+    }
+
+    ["input", "change"].forEach((evt) => {
+      nameInput?.addEventListener(evt, applyFilters);
+      categorySelect?.addEventListener(evt, applyFilters);
+      minInput?.addEventListener(evt, applyFilters);
+      maxInput?.addEventListener(evt, applyFilters);
+    });
+  </script>
+</Layout>
+
+<style>
+  .shadow-soft { box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
+</style>
