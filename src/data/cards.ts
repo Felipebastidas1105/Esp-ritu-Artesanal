@@ -3,58 +3,50 @@ import img02 from "../assets/02.jpg";
 import img03 from "../assets/03.jpg";
 import img04 from "../assets/04.jpg";
 import img05 from "../assets/05.jpg";
+import type { Product } from "../types/product";
 
-export type CardItem = {
-  title: string;
-  description: string;
-  image: any;
-  alt: string;
-  category: string;
-  price: number;
-};
-
-export const cards: CardItem[] = [
+export const cards: Product[] = [
   {
-    title: "Colección Artesano",
+    title: "Collar Artesano",
     description: "Piezas hechas a mano, con acabados cuidados y duraderos.",
     image: img01,
     alt: "Colección artesanal en chaquira",
-    category: "Colecciones",
+    category: "Collares",
     price: 12000,
   },
   {
-    title: "Estilo Artístico",
+    title: "Aretes cortos",
     description:
-      "Aretes y accesorios en chaquira con formas orgánicas y colores vivos.",
+      "Aretes cortos con formas orgánicas y colores vivos.",
     image: img02,
-    alt: "Aretes y accesorios en chaquira",
+    alt: "Aretes cortos",
     category: "Aretes",
-    price: 180,
+    price: 12000,
   },
   {
-    title: "Detalle y Elegancia",
-    description: "Obtén un accesorio de calidad para ti y tus amigos.",
+    title: "Aretes cortos",
+    description: "Aretes cortos con formas orgánicas y colores vivos.",
     image: img03,
     alt: "Detalle y elegancia",
-    category: "Collares",
-    price: 220,
+    category: "Aretes",
+    price: 12000,
   },
   {
-    title: "Materiales y técnicas",
+    title: "Aretes cortos",
     description:
-      "Chaquira, hilos resistentes y herrajes dorados; técnica tradicional con toque contemporáneo.",
+      "Aretes cortos con formas orgánicas y colores vivos.",
     image: img04,
     alt: "Materiales y técnicas",
-    category: "Pulseras",
-    price: 160,
+    category: "Aretes",
+    price: 12000,
   },
   {
-    title: "Contacto",
+    title: "Aretes largos",
     description:
-      "Personalizamos piezas a tu estilo. Escríbenos para pedidos y colaboraciones.",
+      "Aretes largos con formas orgánicas y colores vivos.",
     image: img05,
     alt: "Contacto y experiencia",
-    category: "Servicios",
-    price: 0,
+    category: "Aretes",
+    price: 12000,
   },
 ];

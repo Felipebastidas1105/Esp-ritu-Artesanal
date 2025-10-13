@@ -1,6 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { cards } from "../data/cards";
+import ProductCard from "../components/ProductCard.astro";
+import { getAllProducts, getCategories } from "../services/productService";
+
+const products = getAllProducts();
+const categories = getCategories(products);
 ---
 
 <Layout>
@@ -15,7 +19,7 @@ import { cards } from "../data/cards";
           <input id="filter-name" type="text" placeholder="Buscar por nombre" class="px-4 py-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none bg-white/80" />
           <select id="filter-category" class="px-4 py-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none bg-white/80">
             <option value="Todas">Todas las categorías</option>
-            {Array.from(new Set(cards.map((c) => c.category))).map((cat) => (
+            {categories.map((cat) => (
               <option value={cat}>{cat}</option>
             ))}
           </select>
@@ -25,20 +29,8 @@ import { cards } from "../data/cards";
 
         <!-- Grid de productos -->
         <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {cards.map((p) => (
-            <article class="product-card bg-white/80 rounded-2xl shadow-soft overflow-hidden border border-amber-100" data-name={p.title} data-category={p.category} data-price={p.price}>
-              <div class="w-full h-56 bg-white flex items-center justify-center">
-                <img src={p.image.src} alt={p.alt} class="w-full h-full object-contain" />
-              </div>
-              <div class="p-5">
-                <div class="flex items-center justify-between mb-2">
-                  <h4 class="text-xl font-semibold text-amber-900">{p.title}</h4>
-                  <span class="text-sm px-2 py-1 rounded-full bg-amber-100 text-amber-800">{p.category}</span>
-                </div>
-                <p class="text-sm text-amber-800 mb-3">{p.description}</p>
-                <div class="text-amber-900 font-bold">${p.price}</div>
-              </div>
-            </article>
+          {products.map((p) => (
+            <ProductCard product={p} />
           ))}
         </div>
       </div>

@@ -1,11 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 // Importo imágenes locales desde src/assets para los paneles
-import { cards } from "../data/cards";
+import ProductCard from "../components/ProductCard.astro";
+import { getAllProducts } from "../services/productService";
 import imgphoto from "../assets/06.jpg";
 
-// Datos dinámicos: importados desde src/data/cards para poder añadir más fácilmente
-
+// Datos dinámicos a través del servicio para facilitar mantenibilidad
+const products = getAllProducts();
 const instagram = "https://www.instagram.com/espiritu.artesano/";
 ---
 
@@ -68,7 +69,7 @@ const instagram = "https://www.instagram.com/espiritu.artesano/";
       <div class="pin-wrap min-h-[70vh] md:min-h-[80vh] flex items-center justify-start overflow-hidden">
         <!-- Track horizontal (contenido en filas) -->
         <div class="horizontal-track relative flex flex-col md:flex-row gap-8 md:gap-12 px-4 md:px-6 w-full md:w-max">
-          {cards.slice(0, 5).map((card) => (
+          {products.slice(0, 5).map((card) => (
             <article class="panel min-w-full md:min-w-[70vw] lg:min-w-[55vw] h-auto md:h-[50vh] relative reveal">
               <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-4 md:p-6 bg-white/40 backdrop-blur-md rounded-3xl shadow-soft">
                 <div class="md:col-span-5">
@@ -108,7 +109,7 @@ const instagram = "https://www.instagram.com/espiritu.artesano/";
           <input id="filter-name" type="text" placeholder="Buscar por nombre" class="px-4 py-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none bg-white/80" />
           <select id="filter-category" class="px-4 py-3 rounded-xl border-2 border-amber-200 focus:border-amber-500 outline-none bg-white/80">
             <option value="Todas">Todas las categorías</option>
-            {Array.from(new Set(cards.map((c) => c.category))).map((cat) => (
+            {Array.from(new Set(products.map((c) => c.category))).map((cat) => (
               <option value={cat}>{cat}</option>
             ))}
           </select>
@@ -117,23 +118,11 @@ const instagram = "https://www.instagram.com/espiritu.artesano/";
         </div>
 
         <!-- Grid de productos -->
-        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {cards.map((p) => (
-            <article class="product-card bg-white/80 rounded-2xl shadow-soft overflow-hidden border border-amber-100" data-name={p.title} data-category={p.category} data-price={p.price}>
-              <div class="w-full h-56 bg-white flex items-center justify-center">
-                <img src={p.image.src} alt={p.alt} class="w-full h-full object-contain" />
-              </div>
-              <div class="p-5">
-                <div class="flex items-center justify-between mb-2">
-                  <h4 class="text-xl font-semibold text-amber-900">{p.title}</h4>
-                  <span class="text-sm px-2 py-1 rounded-full bg-amber-100 text-amber-800">{p.category}</span>
-                </div>
-                <p class="text-sm text-amber-800 mb-3">{p.description}</p>
-                <div class="text-amber-900 font-bold">${p.price}</div>
-              </div>
-            </article>
+        <!-- <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((p) => (
+            <ProductCard product={p} />
           ))}
-        </div>
+        </div> -->
       </div>
     </section>
 

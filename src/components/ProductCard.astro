@@ -1,0 +1,21 @@
+---
+import type { Product } from "../types/product";
+import { formatPrice } from "../utils/format";
+
+interface Props { product: Product }
+const { product } = Astro.props as Props;
+---
+
+<article class="product-card bg-white/80 rounded-2xl shadow-soft overflow-hidden border border-amber-100" data-name={product.title} data-category={product.category} data-price={product.price}>
+  <div class="w-full h-56 bg-white flex items-center justify-center">
+    <img src={product.image.src} alt={product.alt} class="w-full h-full object-contain" />
+  </div>
+  <div class="p-5">
+    <div class="flex items-center justify-between mb-2">
+      <h4 class="text-xl font-semibold text-amber-900">{product.title}</h4>
+      <span class="text-sm px-2 py-1 rounded-full bg-amber-100 text-amber-800">{product.category}</span>
+    </div>
+    <p class="text-sm text-amber-800 mb-3">{product.description}</p>
+    <div class="text-amber-900 font-bold">{formatPrice(product.price)}</div>
+  </div>
+</article>
